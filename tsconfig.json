@@ -31,7 +31,8 @@
     "next.config.ts",
     "postcss.config.mjs",
     "tailwind.config.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/types/global.d.ts"
   ],
   "exclude": ["node_modules"]
 }

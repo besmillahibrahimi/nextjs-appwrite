@@ -1,6 +1,3 @@
-import { Models } from "appwrite";
-import type { TUser } from "./user.types";
-
 export type Collections = {
   users: TUser;
 };

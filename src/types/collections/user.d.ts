@@ -1,6 +1,4 @@
-import type { Models } from "appwrite";
-
-export type TUser = Models.Document & {
+type TUser = Document & {
   id: number;
   name: string;
   email: string;
