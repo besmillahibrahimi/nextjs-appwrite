@@ -9,7 +9,7 @@ const clientEnv = ClientEnvSchema.parse({
     isDevMode,
     assetUrl: process.env.NEXT_PUBLIC_ASSET_URL,
   },
-  supabase: {
+  appwrite: {
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,
     projectId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID,
     databaseId: process.env.APPWRITE_DATABASE_ID,

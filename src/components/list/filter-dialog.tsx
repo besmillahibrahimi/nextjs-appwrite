@@ -15,11 +15,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import BSelect from "../b-select";
+import BSelect from "../b-select/b-select";
 
 export function FilterDialog<T>({
   filterSchema,
@@ -28,13 +34,19 @@ export function FilterDialog<T>({
   title = "Filter Options",
   description,
 }: Readonly<FilterDialogProps<T>>) {
-  const [filters, setFilters] = useState<Partial<IFilterState<T>>>(filter ?? {});
+  const [filters, setFilters] = useState<Partial<IFilterState<T>>>(
+    filter ?? {},
+  );
 
   useEffect(() => {
     setFilters(filter ?? {});
   }, [filter]);
 
-  const handleFilterChange = (key: string, value: string | boolean | number | string[], operator: FilterOperator) => {
+  const handleFilterChange = (
+    key: string,
+    value: T[keyof T],
+    operator: FilterOperator,
+  ) => {
     setFilters((prev) => ({ ...prev, [key]: { value, operator: operator } }));
   };
 
@@ -43,14 +55,16 @@ export function FilterDialog<T>({
   };
   const clearFilters = () => {
     const clearedFilters: Partial<IFilterState<T>> = {};
-    Object.keys(filterSchema)?.forEach((k) => {
+    for (const k of Object.keys(filterSchema)) {
       const key = k as keyof T;
       if (filterSchema[key])
         clearedFilters[key] = {
-          value: (filterSchema[key].type === "checkbox" ? false : "") as any,
+          value: (filterSchema[key].type === "checkbox"
+            ? false
+            : "") as T[keyof T],
           operator: filterSchema[key].operator,
         };
-    });
+    }
     setFilters(clearedFilters);
     onFilter?.(clearedFilters);
   };
@@ -62,14 +76,17 @@ export function FilterDialog<T>({
           <FilterIcon className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent aria-describedby="Dialog for filtering a list." className="">
+      <DialogContent
+        aria-describedby="Dialog for filtering a list."
+        className=""
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           {Object.keys(filterSchema).map((k) => {
-            let key = k as keyof T;
+            const key = k as keyof T;
             const item = filterSchema[key];
             if (!item) return null;
             return (
@@ -82,21 +99,35 @@ export function FilterDialog<T>({
                     id={k}
                     className="col-span-3"
                     value={(filters[key]?.value as string) ?? ""}
-                    onChange={(e) => handleFilterChange(k, e.target.value, item.operator)}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        k,
+                        e.target.value as T[keyof T],
+                        item.operator,
+                      )
+                    }
                   />
                 )}
                 {item.type === "checkbox" && (
                   <Checkbox
                     id={k}
                     checked={(filters[key]?.value as boolean) || false}
-                    onCheckedChange={(checked) => handleFilterChange(k, checked, item.operator)}
+                    onCheckedChange={(checked) =>
+                      handleFilterChange(
+                        k,
+                        checked as T[keyof T],
+                        item.operator,
+                      )
+                    }
                   />
                 )}
                 {item.type === "radio" && item.options && (
                   <RadioGroup
                     className="col-span-3"
                     value={filters[key]?.value as string}
-                    onValueChange={(value) => handleFilterChange(k, value, item.operator)}
+                    onValueChange={(value) =>
+                      handleFilterChange(k, value as T[keyof T], item.operator)
+                    }
                   >
                     {item.options.map((option: string) => (
                       <div key={option} className="flex items-center space-x-2">
@@ -109,7 +140,9 @@ export function FilterDialog<T>({
                 {item.type === "select" && item.options && (
                   <Select
                     value={filters[key]?.value as string}
-                    onValueChange={(value) => handleFilterChange(k, value, item.operator)}
+                    onValueChange={(value) =>
+                      handleFilterChange(k, value as T[keyof T], item.operator)
+                    }
                   >
                     <SelectTrigger className="col-span-3">
                       <SelectValue placeholder="Select an option" />
@@ -128,7 +161,9 @@ export function FilterDialog<T>({
                     options={item.options}
                     value={filters[key]?.value}
                     multiple={item.multiple}
-                    onChange={(value: any) => handleFilterChange(k, value, item.operator)}
+                    onChange={(value: T[keyof T]) =>
+                      handleFilterChange(k, value, item.operator)
+                    }
                   />
                 )}
                 {item.type === "range" && (
@@ -138,7 +173,9 @@ export function FilterDialog<T>({
                     max={item.max}
                     step={1}
                     value={[(filters[key]?.value as number) || item.min]}
-                    onValueChange={([value]) => handleFilterChange(k, value, item.operator)}
+                    onValueChange={([value]) =>
+                      handleFilterChange(k, value as T[keyof T], item.operator)
+                    }
                   />
                 )}
               </div>
@@ -153,7 +190,12 @@ export function FilterDialog<T>({
           </DialogClose>
           <div className="flex space-x-3 items-center">
             <DialogClose asChild>
-              <Button size={"default"} onClick={clearFilters} type="button" variant="outline">
+              <Button
+                size={"default"}
+                onClick={clearFilters}
+                type="button"
+                variant="outline"
+              >
                 Clear
               </Button>
             </DialogClose>

@@ -1,6 +1,8 @@
-import type { Models as AppwriteModels } from "appwrite";
+import type { Models } from "appwrite";
 
 declare global {
-  type Models = AppwriteModels;
-  type Document = AppwriteModels.Document;
+  namespace AppWrite {
+    type Document = Models.Document;
+    type User = Models.User<Models.Preferences>;
+  }
 }

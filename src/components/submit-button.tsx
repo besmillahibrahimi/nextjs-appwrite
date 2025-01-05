@@ -1,17 +1,19 @@
 "use client";
-import { forwardRef, ReactNode } from "react";
+import { forwardRef } from "react";
 import { useFormStatus } from "react-dom";
-import { Button, ButtonProps } from "./ui/button";
+import { Button, type ButtonProps } from "./ui/button";
 
 type Props = Exclude<ButtonProps, "type"> & {
-  inPending?: ReactNode;
+  inPending?: React.ReactNode;
 };
 
-export const SubmitButton = forwardRef<HTMLButtonElement, Props>(({ inPending, ...props }, ref) => {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" ref={ref} {...props}>
-      {pending ? inPending ?? "Submitting..." : props.children}
-    </Button>
-  );
-});
+export const SubmitButton = forwardRef<HTMLButtonElement, Props>(
+  ({ inPending, ...props }, ref) => {
+    const { pending } = useFormStatus();
+    return (
+      <Button type="submit" ref={ref} {...props}>
+        {pending ? (inPending ?? "Submitting...") : props.children}
+      </Button>
+    );
+  },
+);

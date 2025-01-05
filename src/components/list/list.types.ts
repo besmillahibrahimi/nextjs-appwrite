@@ -39,7 +39,7 @@ type IFilterSchemaItemSelect<T> = FieldSchema<T> & {
   options: string[];
 };
 
-type IFilterSchemaItemBSelect<T, Option> = FieldSchema<T> & {
+type IFilterSchemaItemBSelect<T, Option = unknown> = FieldSchema<T> & {
   type: "b-select";
   options: Option[];
   multiple?: boolean;
