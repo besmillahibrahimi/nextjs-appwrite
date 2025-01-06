@@ -1,6 +1,6 @@
 "use client";
 
-import { account } from "@/configs/appwrite/appwrite";
+import { createClient } from "@/configs/appwrite/client";
 import type { Models } from "appwrite";
 import { useSearchParams } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -26,6 +26,7 @@ export function AppProvider({ children }: Readonly<React.PropsWithChildren>) {
 
   useEffect(() => {
     (async () => {
+      const { account } = createClient();
       try {
         const user = await account.get();
         setUser(user);

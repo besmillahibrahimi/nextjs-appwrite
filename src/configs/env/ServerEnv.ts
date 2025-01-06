@@ -20,9 +20,10 @@ const serverEnv = ServerEnvSchema.parse({
     assetUrl: process.env.NEXT_PUBLIC_ASSET_URL,
   },
   appwrite: {
-    databaseId: process.env.APPWRITE_DATABASE_ID,
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,
     projectId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID,
+    databaseId: process.env.APPWRITE_DATABASE_ID,
+    apiKey: process.env.APPWRITE_API_KEY,
   },
 });
 

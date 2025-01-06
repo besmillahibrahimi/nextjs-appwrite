@@ -1,6 +1,6 @@
 "use server";
 
-import { ID, databases } from "@/configs/appwrite/appwrite";
+import { ID, databases } from "@/configs/appwrite/client";
 import type {
   CollectionName,
   CollectionType,

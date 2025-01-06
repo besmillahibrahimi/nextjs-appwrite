@@ -7,6 +7,7 @@ export const ClientEnvSchema = z.object({
       .default("development"),
     isDevMode: z.boolean(),
     assetUrl: z.string().url(),
+    authCookieName: z.string(),
   }),
   appwrite: z.object({
     endpoint: z.string().url(),
@@ -27,6 +28,7 @@ export const ServerEnvSchema = ClientEnvSchema.extend({
     endpoint: z.string().url(),
     projectId: z.string(),
     databaseId: z.string(),
+    apiKey: z.string(),
   }),
 });
 

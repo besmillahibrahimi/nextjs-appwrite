@@ -8,8 +8,7 @@ const cardVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        default: "bg-card text-card-foreground shadow hover:bg-card/90",
         error:
           "bg-destructive/30 border-destructive text-destructive-foreground hover:bg-destructive/30",
         warning: "bg-yellow-100 border-yellow-400 text-yellow-700",
