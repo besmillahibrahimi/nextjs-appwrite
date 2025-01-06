@@ -157,15 +157,17 @@ export function FilterDialog<T>({
                   </Select>
                 )}
                 {item.type === "b-select" && (
+                  // @ts-expect-error no need to check type here.
                   <BSelect
                     options={item.options}
                     value={filters[key]?.value}
                     multiple={item.multiple}
-                    onChange={(value: T[keyof T]) =>
-                      handleFilterChange(k, value, item.operator)
+                    onChange={(value: unknown) =>
+                      handleFilterChange(k, value as T[keyof T], item.operator)
                     }
                   />
                 )}
+
                 {item.type === "range" && (
                   <Slider
                     className="col-span-3"

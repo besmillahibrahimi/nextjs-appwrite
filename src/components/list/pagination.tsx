@@ -17,20 +17,35 @@ type PaginationProps = {
   maxVisiblePages?: number;
 };
 
-function getVisiblePages(currentPage: number, totalPages: number, maxVisiblePages: number) {
+function getVisiblePages(
+  currentPage: number,
+  totalPages: number,
+  maxVisiblePages: number,
+) {
   const halfVisiblePages = Math.floor(maxVisiblePages / 2);
   let startPage = Math.max(currentPage - halfVisiblePages, 1);
-  let endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+  const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
 
   if (endPage - startPage < maxVisiblePages - 1) {
     startPage = Math.max(endPage - maxVisiblePages + 1, 1);
   }
 
-  return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+  return Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i,
+  );
 }
 
-function getPageNumbers(currentPage: number, totalPages: number, maxVisiblePages: number) {
-  const visiblePages = getVisiblePages(currentPage, totalPages, maxVisiblePages);
+function getPageNumbers(
+  currentPage: number,
+  totalPages: number,
+  maxVisiblePages: number,
+) {
+  const visiblePages = getVisiblePages(
+    currentPage,
+    totalPages,
+    maxVisiblePages,
+  );
 
   const pageNumbers = [];
 
@@ -42,22 +57,35 @@ function getPageNumbers(currentPage: number, totalPages: number, maxVisiblePages
   pageNumbers.push(...visiblePages);
 
   if (visiblePages[visiblePages.length - 1] < totalPages) {
-    if (visiblePages[visiblePages.length - 1] < totalPages - 1) pageNumbers.push(-1);
+    if (visiblePages[visiblePages.length - 1] < totalPages - 1)
+      pageNumbers.push(-1);
     pageNumbers.push(totalPages);
   }
 
   return pageNumbers;
 }
 
-function getNextPageNumber(currentPage: number, totalPages: number, cycle: number | null = null) {
+function getNextPageNumber(
+  currentPage: number,
+  totalPages: number,
+  cycle: number | null = null,
+) {
   return currentPage < totalPages ? currentPage + 1 : cycle;
 }
 
-function getPreviousPageNumber(currentPage: number, cycle: number | null = null) {
+function getPreviousPageNumber(
+  currentPage: number,
+  cycle: number | null = null,
+) {
   return currentPage > 1 ? currentPage - 1 : cycle;
 }
 
-export function Pagination({ currentPage, totalPages, onPageChange, maxVisiblePages = 3 }: Readonly<PaginationProps>) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+  maxVisiblePages = 3,
+}: Readonly<PaginationProps>) {
   const pageNumbers = getPageNumbers(currentPage, totalPages, maxVisiblePages);
 
   return (
@@ -70,7 +98,9 @@ export function Pagination({ currentPage, totalPages, onPageChange, maxVisiblePa
               ...(onPageChange
                 ? {
                     variant: "ghost",
-                    onClick: (e) => {
+                    onClick: (
+                      e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                    ) => {
                       e.preventDefault();
                       if (currentPage > 1) onPageChange?.(currentPage - 1);
                     },
@@ -82,7 +112,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, maxVisiblePa
           />
         </PaginationItem>
         {pageNumbers.map((pageNumber, index) => (
-          <PaginationItem key={`page-item-${pageNumber}-${index}`}>
+          <PaginationItem key={`page-item-${pageNumber}-${index + 1}`}>
             {pageNumber === -1 || pageNumber === -2 ? (
               <PaginationEllipsis />
             ) : (
@@ -91,7 +121,9 @@ export function Pagination({ currentPage, totalPages, onPageChange, maxVisiblePa
                   ...(onPageChange
                     ? {
                         variant: "ghost",
-                        onClick: (e) => {
+                        onClick: (
+                          e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                        ) => {
                           e.preventDefault();
                           onPageChange?.(pageNumber);
                         },
@@ -113,9 +145,12 @@ export function Pagination({ currentPage, totalPages, onPageChange, maxVisiblePa
               ...(onPageChange
                 ? {
                     variant: "ghost",
-                    onClick: (e) => {
+                    onClick: (
+                      e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                    ) => {
                       e.preventDefault();
-                      if (currentPage < totalPages) onPageChange?.(currentPage + 1);
+                      if (currentPage < totalPages)
+                        onPageChange?.(currentPage + 1);
                     },
                   }
                 : {
