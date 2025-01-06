@@ -44,8 +44,10 @@ export function AppProvider({ children }: Readonly<React.PropsWithChildren>) {
     if (useSonner && useSonner === "true" && message && type && title) {
       setTimeout(() => {
         // make the component is rendered
-        toast[type](title ?? message, { description: title ? message : null });
-      }, 500);
+        toast[type](title ?? message, {
+          description: title ? message : null,
+        });
+      }, 700);
     }
   }, [searchParams]);
 
