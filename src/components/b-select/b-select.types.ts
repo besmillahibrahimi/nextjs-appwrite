@@ -10,7 +10,7 @@ type BSelectBaseProps<T> = {
 };
 
 type SingleSelection<T> = BSelectBaseProps<T> & {
-  multiple?: false | undefined;
+  multiple: false | undefined;
 
   value?: T;
   onChange?: (value: T) => void;

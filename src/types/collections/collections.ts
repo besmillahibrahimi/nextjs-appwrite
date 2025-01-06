@@ -1,6 +1,4 @@
-export type Collections = {
-  users: TUser;
-};
+export type Collections = Record<string, AppWrite.Document>;
 
 export type CollectionName = keyof Collections;
 
