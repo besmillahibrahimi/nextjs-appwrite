@@ -11,7 +11,7 @@ export const ClientEnvSchema = z.object({
   appwrite: z.object({
     endpoint: z.string().url(),
     projectId: z.string(),
-    databaseId: z.string(),
+    databaseId: z.string().optional(),
   }),
 });
 

@@ -1,9 +1,4 @@
-import { Models } from "appwrite";
-import type { TUser } from "./user.types";
-
-export type Collections = {
-  users: TUser;
-};
+export type Collections = Record<string, AppWrite.Document>;
 
 export type CollectionName = keyof Collections;
 
