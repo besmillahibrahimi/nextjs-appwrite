@@ -1,10 +1,9 @@
 "use client";
 
-import { createClient } from "@/configs/appwrite/client";
+import { useAppWrite } from "@/configs/appwrite/hooks";
+import { useAlertMessage } from "@/hooks/use-alert-message";
 import type { Models } from "appwrite";
-import { useSearchParams } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "sonner";
+import { createContext, useContext } from "react";
 
 type ContextType = {
   user: Models.User<Models.Preferences> | null;
@@ -19,38 +18,9 @@ export const AppContext = createContext<ContextType>(defaultContext);
 export const useApp = () => useContext(AppContext);
 
 export function AppProvider({ children }: Readonly<React.PropsWithChildren>) {
-  const searchParams = useSearchParams();
-  const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
-    null,
-  );
+  const { user } = useAppWrite();
 
-  useEffect(() => {
-    (async () => {
-      const { account } = createClient();
-      try {
-        const user = await account.get();
-        setUser(user);
-      } catch (error) {
-        setUser(null);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    const message = searchParams.get("message");
-    const type = searchParams.get("type") as MessageType;
-    const title = searchParams.get("title");
-    const useSonner = searchParams.get("useSonner");
-
-    if (useSonner && useSonner === "true" && message && type && title) {
-      setTimeout(() => {
-        // make the component is rendered
-        toast[type](title ?? message, {
-          description: title ? message : null,
-        });
-      }, 700);
-    }
-  }, [searchParams]);
+  useAlertMessage();
 
   return <AppContext.Provider value={{ user }}>{children}</AppContext.Provider>;
 }

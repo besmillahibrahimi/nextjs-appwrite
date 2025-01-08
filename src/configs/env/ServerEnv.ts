@@ -14,10 +14,16 @@ if (isDevelopment) {
 }
 
 const serverEnv = ServerEnvSchema.parse({
+  auth: {
+    googleRedirectCallback: process.env.GOOGLE_REDIRECT_CALLBACK,
+    authCookieName:
+      process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME ?? "auth_session_token",
+  },
   app: {
     env: currentEnv,
     isDevMode,
     assetUrl: process.env.NEXT_PUBLIC_ASSET_URL,
+    address: process.env.NEXT_PUBLIC_SITE_ADDRESS,
   },
   appwrite: {
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,

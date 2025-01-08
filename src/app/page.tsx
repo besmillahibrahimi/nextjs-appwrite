@@ -1,9 +1,17 @@
-"use client";
-import { useApp } from "@/providers/app.provider";
+import { LogoutButton } from "@/components/logout-button";
+import { createClient } from "@/configs/appwrite/server";
 import Image from "next/image";
 
-export default function Home() {
-  const { user } = useApp();
+export default async function Home() {
+  const client = await createClient();
+  let user = null;
+
+  try {
+    user = await client.account.get();
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -12,6 +20,7 @@ export default function Home() {
           <code className="font-mono font-bold">src/app/page.tsx</code>
           {user ? <span>Logged in as {user.name}</span> : "log in"}
         </p>
+        <LogoutButton />
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"

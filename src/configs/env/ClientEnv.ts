@@ -8,8 +8,7 @@ const clientEnv = ClientEnvSchema.parse({
     env: currentEnv,
     isDevMode,
     assetUrl: process.env.NEXT_PUBLIC_ASSET_URL,
-    authCookieName:
-      process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME ?? "auth_session_token",
+    address: process.env.NEXT_PUBLIC_SITE_ADDRESS,
   },
   appwrite: {
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,

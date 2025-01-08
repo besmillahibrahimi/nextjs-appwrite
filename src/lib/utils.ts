@@ -7,7 +7,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export type EncodedRedirect = AlertMessage & { path: string };
+export type EncodedRedirect = Partial<AlertMessage> & {
+  path: string;
+};
 /**
  * Redirects to a specified path with an encoded message as a query parameter.
  * @param {('error' | 'success')} type - The type of message, either 'error' or 'success'.
@@ -15,17 +17,8 @@ export type EncodedRedirect = AlertMessage & { path: string };
  * @param {string} message - The message to be encoded and added as a query parameter.
  * @returns {never} This function doesn't return as it triggers a redirect.
  */
-export function encodedRedirect({
-  path,
-  type,
-  message,
-  title,
-  useSonner,
-}: Readonly<EncodedRedirect>) {
-  const query = qs.stringify(
-    { title, type, message, useSonner },
-    { addQueryPrefix: true },
-  );
+export function encodedRedirect({ path, ...rest }: Readonly<EncodedRedirect>) {
+  const query = qs.stringify(rest, { addQueryPrefix: true });
 
   return redirect(`${path}${query}`);
 }

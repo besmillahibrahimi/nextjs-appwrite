@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SubmitButton } from "@/components/submit-button";
-import { signInAction } from "../_actions/auth.action";
+import { googleSignInAction, signInAction } from "./action";
 
 export function LoginForm({
   className,
@@ -58,7 +59,12 @@ export function LoginForm({
               >
                 Login
               </SubmitButton>
-              <Button variant="outline" className="w-full">
+              <Button
+                type="button"
+                onClick={googleSignInAction}
+                variant="outline"
+                className="w-full"
+              >
                 Login with Google
               </Button>
             </div>
