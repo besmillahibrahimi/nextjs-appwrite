@@ -1,10 +1,3 @@
-import type { ComponentProps, ReactNode } from "react";
-import type {
-  Control,
-  ControllerRenderProps,
-  FieldValues,
-  Path,
-} from "react-hook-form";
 import {
   FormControl,
   FormDescription,
@@ -13,6 +6,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import type { SelectProps } from "@radix-ui/react-select";
+import type { ComponentProps, ReactNode } from "react";
+import type {
+  Control,
+  ControllerRenderProps,
+  FieldValues,
+  Path,
+} from "react-hook-form";
+import BSelect from "./b-select/b-select";
 import { Checkbox, type CheckboxProps } from "./ui/checkbox";
 import { Input } from "./ui/input";
 import {
@@ -22,8 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import type { SelectProps } from "@radix-ui/react-select";
-import BSelect from "./b-select/b-select";
 
 type BaseProps<T extends FieldValues> = {
   className?: string;

@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome lint --write ./src",
-    "check": "biome check --write",
+    "check": "biome check --write ./src",
     "format": "biome format --write ./src",
     "check-types": "tsc --noEmit",
     "test": "jest --watchAll",

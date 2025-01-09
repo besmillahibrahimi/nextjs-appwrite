@@ -1,7 +1,7 @@
 "use client";
+import { getAuthCookie } from "@/app/(auth)/auth/_actions/auth.action";
 import { useEffect, useState } from "react";
 import { account, client } from "./client";
-import { getAuthCookie } from "@/app/(auth)/auth/_actions/auth.action";
 
 export function useAppWrite() {
   const [user, setUser] = useState<AppWrite.User | null>(null);

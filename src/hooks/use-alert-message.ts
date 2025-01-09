@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -22,7 +22,6 @@ export function useAlertMessage(
 
           onAutoClose() {
             // Remove the alert message from the query parameters
-            console.log("onDismiss");
             const params = new URLSearchParams(window.location.search);
             params.delete("message");
             params.delete("type");

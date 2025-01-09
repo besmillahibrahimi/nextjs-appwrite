@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { ListFooter } from "./list-footer";
 import { ListHeader } from "./list-header";
 
@@ -32,15 +32,22 @@ export function List<T extends { id: string | number }>({
     body = (
       <>
         <div>
-          <ListHeader onSearch={onSearch} filterProps={filterProps} sortProps={sortProps} />
+          <ListHeader
+            onSearch={onSearch}
+            filterProps={filterProps}
+            sortProps={sortProps}
+          />
           <hr />
         </div>
         {loading ? (
           <ul className={cn("flex flex-wrap ", className)}>
             {Array.from({ length: 10 }).map((_, index) => (
-              <li key={`item-${index + 1}`} className="flex justify-center items-center h-96">
+              <li
+                key={`item-${index + 1}`}
+                className="flex justify-center items-center h-96"
+              >
                 {skeleton ?? (
-                  <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+                  <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900" />
                 )}
               </li>
             ))}

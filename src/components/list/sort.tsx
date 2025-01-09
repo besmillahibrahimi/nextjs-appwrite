@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ArrowUpDown, SortAsc, SortDesc } from "lucide-react";
 
-export function SortDropdown<T>({ sortOptions, onSort, sort }: Readonly<SortDropdownProps<T>>) {
+export function SortDropdown<T>({
+  sortOptions,
+  onSort,
+  sort,
+}: Readonly<SortDropdownProps<T>>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +29,8 @@ export function SortDropdown<T>({ sortOptions, onSort, sort }: Readonly<SortDrop
             onClick={() => onSort?.(option.value, !sort?.ascending)}
           >
             {option.label}
-            {sort?.sortBy === option.value && (sort?.ascending ? <SortAsc /> : <SortDesc />)}
+            {sort?.sortBy === option.value &&
+              (sort?.ascending ? <SortAsc /> : <SortDesc />)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

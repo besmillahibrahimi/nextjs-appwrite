@@ -35,7 +35,6 @@ export async function forgotPasswordAction(formData: FormData) {
       title: "Success",
     };
   } catch (error) {
-    console.log("forgot", error);
     if (error instanceof AppwriteException) {
       alert = {
         path: "/auth/forgot-password",

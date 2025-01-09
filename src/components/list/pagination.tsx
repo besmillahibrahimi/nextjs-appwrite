@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  Pagination as Paginations,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  Pagination as Paginations,
 } from "@/components/ui/pagination";
 
 type PaginationProps = {

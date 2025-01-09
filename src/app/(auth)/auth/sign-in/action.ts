@@ -8,7 +8,7 @@ import { AppwriteException } from "appwrite";
 import { startCase } from "lodash-es";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { OAuthProvider, type Models } from "node-appwrite";
+import { type Models, OAuthProvider } from "node-appwrite";
 
 export async function setSessionCookie(session: Models.Session) {
   const cookieStore = await cookies();
@@ -94,7 +94,7 @@ export async function signInAction(formData: FormData) {
   try {
     // don't call redirect in try context.
     const session = await account.createEmailPasswordSession(email, password);
-    console.log("sign-in ok", session);
+
     await setSessionCookie(session);
     alert = {
       path: "/",
@@ -104,7 +104,6 @@ export async function signInAction(formData: FormData) {
       useSonner: true,
     };
   } catch (error) {
-    console.log("sign-in", error);
     if (error instanceof AppwriteException) {
       alert = {
         path: "/auth/sign-in",
