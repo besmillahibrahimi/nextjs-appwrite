@@ -64,6 +64,16 @@ export async function resetPasswordAction(formData: FormData) {
         secret,
         userId,
       };
+    } else if (error instanceof Error) {
+      alert = {
+        path: "/auth/reset-password",
+        message: "message" in error ? error.message : "Something went wrong",
+        type: "error",
+        title: startCase((error as AppwriteException).type ?? "Error"),
+        secret,
+        userId,
+        useSonner: true,
+      };
     } else {
       alert = {
         path: "/auth/reset-password",

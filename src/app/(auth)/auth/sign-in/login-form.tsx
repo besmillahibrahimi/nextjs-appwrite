@@ -1,6 +1,5 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,9 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { SubmitButton } from "@/components/submit-button";
-import { googleSignInAction, signInAction } from "./action";
+import { signInAction } from "./action";
 
 export function LoginForm({
   className,
@@ -59,14 +58,26 @@ export function LoginForm({
               >
                 Login
               </SubmitButton>
-              <Button
-                type="button"
-                onClick={googleSignInAction}
-                variant="outline"
-                className="w-full"
-              >
-                Login with Google
-              </Button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <Link
+                  href={"/auth/google"}
+                  className={buttonVariants({
+                    className: "w-full",
+                    variant: "outline",
+                  })}
+                >
+                  Log in with Google
+                </Link>
+                <Link
+                  href={"/auth/magic-link"}
+                  className={buttonVariants({
+                    className: "w-full",
+                    variant: "outline",
+                  })}
+                >
+                  Login with Magic Link
+                </Link>
+              </div>
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}

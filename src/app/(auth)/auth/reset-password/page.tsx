@@ -12,7 +12,7 @@ export default async function ResetPasswordPage({
   return (
     <div>
       <ResetPasswordForm {...query} />
-      {"type" in query && <AlertMessage {...query} />}
+      {"type" in query && <AlertMessage className="mt-4" {...query} />}
     </div>
   );
 }

@@ -45,12 +45,22 @@ export async function signUpAction(formData: FormData) {
         title: startCase(error.type),
         useSonner: true,
       };
+    } else if (error instanceof Error) {
+      alert = {
+        path: "/auth/reset-password",
+        message: "message" in error ? error.message : "Something went wrong",
+        type: "error",
+        title: "Error",
+
+        useSonner: true,
+      };
     } else {
       alert = {
-        path: "/auth/sign-up",
+        path: "/auth/reset-password",
         message: "Something went wrong",
         type: "error",
         title: "Error",
+
         useSonner: true,
       };
     }

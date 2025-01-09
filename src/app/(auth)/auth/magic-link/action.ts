@@ -5,6 +5,7 @@ import clientEnv from "@/configs/env/ClientEnv";
 import { encodedRedirect } from "@/lib/utils";
 import { AppwriteException } from "appwrite";
 import { startCase } from "lodash-es";
+import { ID } from "node-appwrite";
 
 export async function forgotPasswordAction(formData: FormData) {
   const { account } = await createClient();
@@ -13,7 +14,7 @@ export async function forgotPasswordAction(formData: FormData) {
 
   if (!email) {
     alert = {
-      path: "/auth/forgot-password",
+      path: "/auth/magic-link",
       message: "Please enter your email",
       type: "warning",
       title: "Form not filled",
@@ -24,21 +25,22 @@ export async function forgotPasswordAction(formData: FormData) {
   }
 
   try {
-    await account.createRecovery(
+    await account.createMagicURLToken(
+      ID.unique(),
       email,
-      `${clientEnv.app.address}/auth/reset-password`,
+      `${clientEnv.app.address}/auth/magic-link/verify`,
     );
     alert = {
-      path: "/auth/forgot-password",
-      message: "Password recovery email sent",
+      path: "/auth/magic-link",
+      message:
+        "The magic link sent to your email. Use it to login to your account.",
       type: "success",
       title: "Success",
     };
   } catch (error) {
-    console.log("forgot", error);
     if (error instanceof AppwriteException) {
       alert = {
-        path: "/auth/forgot-password",
+        path: "/auth/magic-link",
         message: error.message,
         type: "error",
         title: startCase(error.type),

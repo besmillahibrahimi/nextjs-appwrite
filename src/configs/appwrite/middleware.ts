@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server";
 import serverEnv from "../env/ServerEnv";
 
 export const updateSession = async (request: NextRequest) => {
-  console.log("middleware ---------------", request.url);
   try {
     const response = NextResponse.next({
       request: {
@@ -12,8 +11,8 @@ export const updateSession = async (request: NextRequest) => {
 
     const authCookie = request.cookies.get(serverEnv.auth.authCookieName);
 
-    console.log("authCookie", authCookie?.value);
-    if (authCookie?.value && request.nextUrl.pathname.startsWith("/auth")) {
+    // redirect login user to home page
+    if (authCookie?.value && request.nextUrl.pathname.startsWith("/auth/")) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 

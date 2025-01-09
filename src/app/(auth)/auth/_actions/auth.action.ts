@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 export async function signOutAction() {
   const { account } = await createClient();
   const cookieStore = await cookies();
+  if (!cookieStore.has(serverEnv.auth.authCookieName)) return;
   cookieStore.delete(serverEnv.auth.authCookieName);
   await account.deleteSession("current");
   encodedRedirect({

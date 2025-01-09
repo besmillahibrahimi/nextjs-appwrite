@@ -1,5 +1,5 @@
 import { SubmitButton } from "@/components/submit-button";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -55,9 +55,16 @@ export function SignUpForm({
               <SubmitButton formAction={signUpAction} className="w-full">
                 Get Started
               </SubmitButton>
-              <Button variant="outline" className="w-full">
+
+              <Link
+                href={"/auth/google"}
+                className={buttonVariants({
+                  className: "w-full",
+                  variant: "outline",
+                })}
+              >
                 Sign up with Google
-              </Button>
+              </Link>
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}

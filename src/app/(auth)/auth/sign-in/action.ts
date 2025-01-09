@@ -21,10 +21,55 @@ export async function setSessionCookie(session: Models.Session) {
   });
 }
 
-export async function createSessionAction(userId: string, secret: string) {
-  const { account } = await createClient();
-  const session = await account.createSession(userId, secret);
-  await setSessionCookie(session);
+export async function createSessionAction(
+  userId: string,
+  secret: string,
+  url: string,
+) {
+  let alert: (AlertMessage & { path: string }) | null = null;
+
+  try {
+    const { account } = await createClient();
+    const session = await account.createSession(userId, secret);
+    await setSessionCookie(session);
+    alert = {
+      path: "/",
+      message: "Logged in successfully",
+      type: "success",
+      title: "Success",
+      useSonner: true,
+    };
+  } catch (error) {
+    if (error instanceof AppwriteException) {
+      alert = {
+        path: url,
+        message: error.message,
+        type: "error",
+        title: startCase(error.type),
+        useSonner: true,
+      };
+    } else if (error instanceof Error) {
+      alert = {
+        path: url,
+        message: "message" in error ? error.message : "Something went wrong",
+        type: "error",
+        title: "Error",
+
+        useSonner: true,
+      };
+    } else {
+      alert = {
+        path: url,
+        message: "Something went wrong",
+        type: "error",
+        title: "Error",
+
+        useSonner: true,
+      };
+    }
+  }
+
+  encodedRedirect(alert);
 }
 
 export async function signInAction(formData: FormData) {
@@ -68,12 +113,22 @@ export async function signInAction(formData: FormData) {
         title: startCase(error.type),
         useSonner: true,
       };
+    } else if (error instanceof Error) {
+      alert = {
+        path: "/auth/reset-password",
+        message: "message" in error ? error.message : "Something went wrong",
+        type: "error",
+        title: "Error",
+
+        useSonner: true,
+      };
     } else {
       alert = {
-        path: "/auth/sign-in",
+        path: "/auth/reset-password",
         message: "Something went wrong",
         type: "error",
         title: "Error",
+
         useSonner: true,
       };
     }
