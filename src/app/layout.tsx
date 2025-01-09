@@ -12,7 +12,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning>
+      <body
+        className={`bg-background ${inter.className}`}
+        suppressHydrationWarning
+      >
         <Providers>{children}</Providers>
         <Toaster />
       </body>

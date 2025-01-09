@@ -1,15 +1,14 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 
 const cardVariants = cva(
   "rounded-xl border bg-card text-card-foreground shadow",
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        default: "bg-card text-card-foreground shadow hover:bg-card/90",
         error:
           "bg-destructive/30 border-destructive text-destructive-foreground hover:bg-destructive/30",
         warning: "bg-yellow-100 border-yellow-400 text-yellow-700",
