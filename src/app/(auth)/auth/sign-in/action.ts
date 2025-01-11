@@ -114,7 +114,7 @@ export async function signInAction(formData: FormData) {
       };
     } else if (error instanceof Error) {
       alert = {
-        path: "/auth/reset-password",
+        path: "/auth/sign-in",
         message: "message" in error ? error.message : "Something went wrong",
         type: "error",
         title: "Error",
@@ -123,7 +123,7 @@ export async function signInAction(formData: FormData) {
       };
     } else {
       alert = {
-        path: "/auth/reset-password",
+        path: "/auth/sign-in",
         message: "Something went wrong",
         type: "error",
         title: "Error",
@@ -140,8 +140,8 @@ export async function googleSignInAction() {
   const { account } = await createClient();
   const url = await account.createOAuth2Token(
     OAuthProvider.Google,
-    serverEnv.auth.googleRedirectCallback,
-    serverEnv.auth.googleRedirectCallback,
+    "/auth/google/callback",
+    "/auth/google/callback",
   );
   redirect(url);
 }

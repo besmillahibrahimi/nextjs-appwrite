@@ -15,7 +15,6 @@ if (isDevelopment) {
 
 const serverEnv = ServerEnvSchema.parse({
   auth: {
-    googleRedirectCallback: process.env.GOOGLE_REDIRECT_CALLBACK,
     authCookieName:
       process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME ?? "auth_session_token",
   },
