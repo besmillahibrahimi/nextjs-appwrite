@@ -11,7 +11,7 @@ export function validateEnvVars(requiredVars: readonly string[]) {
 
 export function getEnvironment() {
   return {
-    currentEnv: (process.env.APP_ENV || "development") as
+    currentEnv: (process.env.APP_ENV ?? "development") as
       | "development"
       | "staging"
       | "production",
