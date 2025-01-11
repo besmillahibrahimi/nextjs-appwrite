@@ -10,13 +10,14 @@ export function AlertMessage({
   type,
   title,
   useSonner,
-}: Readonly<AlertMessage>) {
+  className,
+}: Readonly<AlertMessage & { className?: string }>) {
   if (useSonner) return null;
 
   if (!message || !type) return null;
 
   return (
-    <Card className={"mb-4"} variant={type}>
+    <Card className={className} variant={type}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{message}</CardDescription>

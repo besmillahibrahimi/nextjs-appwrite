@@ -8,6 +8,7 @@ const clientEnv = ClientEnvSchema.parse({
     env: currentEnv,
     isDevMode,
     assetUrl: process.env.NEXT_PUBLIC_ASSET_URL,
+    address: process.env.NEXT_PUBLIC_SITE_ADDRESS,
   },
   appwrite: {
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,

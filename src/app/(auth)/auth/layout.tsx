@@ -3,7 +3,7 @@ export default function AuthLayout({
 }: Readonly<React.PropsWithChildren>) {
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="p-5 border rounded-lg max-w-96">{children}</div>
+      <div className=" max-w-96">{children}</div>
     </div>
   );
 }

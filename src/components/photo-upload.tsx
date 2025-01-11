@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Download, X } from "lucide-react";
 import Image from "next/image";
-import { ComponentProps, forwardRef, useId, useState } from "react";
+import { type ComponentProps, forwardRef, useId, useState } from "react";
 
 type Props = ComponentProps<"input"> & {
   onUpload?: (file: File) => void;
@@ -54,7 +54,7 @@ export const PhotoUpload = forwardRef<HTMLInputElement, Props>((props, ref) => {
       className={cn(
         "relative flex aspect-square cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors",
         isDragging ? "border-primary " : "border-gray-300",
-        imagePreview && "border-solid"
+        imagePreview && "border-solid",
       )}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -72,7 +72,12 @@ export const PhotoUpload = forwardRef<HTMLInputElement, Props>((props, ref) => {
       />
       {imagePreview ? (
         <div className="relative aspect-square w-full">
-          <Image src={imagePreview} alt="Image preview" fill className="rounded-lg object-cover" />
+          <Image
+            src={imagePreview}
+            alt="Image preview"
+            fill
+            className="rounded-lg object-cover"
+          />
           <button
             type="button"
             onClick={(e) => {
@@ -87,7 +92,9 @@ export const PhotoUpload = forwardRef<HTMLInputElement, Props>((props, ref) => {
       ) : (
         <div className="flex flex-col items-center justify-center text-gray-400">
           <Download className="mb-2 h-6 w-6 " aria-hidden="true" />
-          <p className="text-sm">{isDragging ? "Just drop it" : "Drag an image here"}</p>
+          <p className="text-sm">
+            {isDragging ? "Just drop it" : "Drag an image here"}
+          </p>
         </div>
       )}
     </label>
