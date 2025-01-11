@@ -3,6 +3,14 @@
   "ui": "tui",
   "tasks": {
     "build": {
+      "env": [
+        "NEXT_PUBLIC_APPWRITE_ENDPOINT",
+        "NEXT_PUBLIC_APPWRITE_PROJECT_ID",
+        "APPWRITE_DATABASE_ID",
+        "APPWRITE_API_KEY",
+        "NEXT_PUBLIC_SITE_ADDRESS",
+        "NEXT_PUBLIC_ASSET_URL"
+      ],
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
