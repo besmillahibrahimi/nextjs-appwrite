@@ -18,7 +18,6 @@ export const ClientEnvSchema = z.object({
 
 export const ServerEnvSchema = ClientEnvSchema.extend({
   auth: z.object({
-    googleRedirectCallback: z.string().url(),
     authCookieName: z.string(),
   }),
   app: z.object({
