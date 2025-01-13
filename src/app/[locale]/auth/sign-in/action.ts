@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/configs/appwrite/server";
-import serverEnv from "@/configs/env/ServerEnv";
+import env from "@/configs/env";
 import { getEnvironment } from "@/configs/env/utils";
 import { encodedRedirect } from "@/lib/utils";
 import { AppwriteException } from "appwrite";
@@ -12,7 +12,7 @@ import { type Models, OAuthProvider } from "node-appwrite";
 
 export async function setSessionCookie(session: Models.Session) {
   const cookieStore = await cookies();
-  cookieStore.set(serverEnv.auth.authCookieName, session.secret, {
+  cookieStore.set(env.auth.authCookieName, session.secret, {
     path: "/",
     httpOnly: true,
     sameSite: "strict",

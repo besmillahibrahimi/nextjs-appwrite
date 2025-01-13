@@ -1,7 +1,7 @@
 "use server";
+import path from "node:path";
 import i18n from "i18next";
 import Backend from "i18next-fs-backend";
-import path from "node:path";
 import { getOptions } from "./i18n";
 
 const initI18n = async (locale: string, ns: string | string[]) => {
