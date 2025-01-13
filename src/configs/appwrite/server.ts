@@ -2,24 +2,22 @@
 
 import { cookies } from "next/headers";
 import { Account, Client } from "node-appwrite";
-import serverEnv from "../env/ServerEnv";
+import env from "../env";
 import { getEnvironment } from "../env/utils";
 
 export async function createClient() {
   const client = new Client();
 
-  client
-    .setEndpoint(serverEnv.appwrite.endpoint)
-    .setProject(serverEnv.appwrite.projectId);
-  // .setKey(serverEnv.appwrite.apiKey);
+  client.setEndpoint(env.appwrite.endpoint).setProject(env.appwrite.projectId);
+  // .setKey(env.appwrite.apiKey);
 
   // set session cookie if exists
   const cookieStore = await cookies();
-  const cookie = cookieStore.get(serverEnv.auth.authCookieName);
+  const cookie = cookieStore.get(env.auth.authCookieName);
   console.log("cookie", cookie);
   if (cookie?.value) {
     client.setSession(cookie.value);
-  } else client.setKey(serverEnv.appwrite.apiKey);
+  } else client.setKey(env.appwrite.apiKey);
 
   if (getEnvironment().isDevMode) client.setSelfSigned(true);
 
