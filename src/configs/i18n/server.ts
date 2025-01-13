@@ -1,30 +1,28 @@
-import { createInstance } from "i18next";
-import HttpApi from "i18next-http-backend";
-import { initReactI18next } from "react-i18next/initReactI18next";
-import clientEnv from "../env/ClientEnv";
+"use server";
+import i18n from "i18next";
+import Backend from "i18next-fs-backend";
+import path from "node:path";
 import { getOptions } from "./i18n";
-import { cookies } from "next/headers";
 
-const httpApiToBackend = new HttpApi(null, {
-  loadPath: `${clientEnv.app.address}/locales/{{lng}}/{{ns}}.json`,
-});
-
-const initI18next = async (lng: string, ns?: string | string[]) => {
-  const i18nInstance = createInstance();
-  await i18nInstance
-    .use(httpApiToBackend)
-    .use(initReactI18next)
-    .init({ ...getOptions(lng, ns), debug: true });
-  return i18nInstance;
+const initI18n = async (locale: string, ns: string | string[]) => {
+  if (!i18n.isInitialized) {
+    await i18n.use(Backend).init({
+      ...getOptions(locale, ns),
+      backend: {
+        loadPath: path.resolve("./public/locales/{{lng}}/{{ns}}.json"),
+      },
+    });
+  }
+  return i18n;
 };
 
-export async function useTranslation(ns?: string | string[]) {
-  const cookieStore = await cookies();
-  const lng = cookieStore.get("NEXT_LOCALE")?.value ?? "en";
+export async function useTranslation(locale: string, ns: string | string[]) {
+  const i18n = await initI18n(locale, ns);
 
-  const i18nextInstance = await initI18next(lng, ns);
   return {
-    t: i18nextInstance.getFixedT(lng, Array.isArray(ns) ? ns[0] : ns),
-    i18n: i18nextInstance,
+    t: i18n.getFixedT(locale, ns),
+    i18n,
   };
 }
+
+export default initI18n;

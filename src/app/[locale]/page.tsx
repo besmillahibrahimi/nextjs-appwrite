@@ -2,12 +2,15 @@ import { LogoutButton } from "@/components/logout-button";
 import { ThemeToggler } from "@/components/theme-toggler-button";
 import { createClient } from "@/configs/appwrite/server";
 import { useTranslation } from "@/configs/i18n/server";
+// import { useTranslation } from "@/configs/i18n/client";
 import Image from "next/image";
 
 export default async function Home() {
   const client = await createClient();
   let user = null;
-  const { t } = await useTranslation("common");
+  // const { t } = useTranslation("fa", "common");
+  const { t } = await useTranslation("fa", "common");
+  // const { t } = await useTranslation2("fa");
 
   try {
     user = await client.account.get();

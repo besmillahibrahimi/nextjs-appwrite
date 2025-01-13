@@ -1,13 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 import serverEnv from "../env/ServerEnv";
+import { i18nMiddleware } from "../i18n/middleware";
 
 export const updateSession = async (request: NextRequest) => {
   try {
-    const response = NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
+    const response = i18nMiddleware(request);
 
     const authCookie = request.cookies.get(serverEnv.auth.authCookieName);
 

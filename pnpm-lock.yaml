@@ -59,12 +59,18 @@ importers:
       i18next-browser-languagedetector:
         specifier: ^8.0.2
         version: 8.0.2
+      i18next-fs-backend:
+        specifier: ^2.6.0
+        version: 2.6.0
       i18next-http-backend:
         specifier: ^3.0.1
         version: 3.0.1
       i18next-http-middleware:
         specifier: ^3.7.1
         version: 3.7.1
+      i18next-resources-to-backend:
+        specifier: ^1.2.1
+        version: 1.2.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1751,11 +1757,17 @@ packages:
   i18next-browser-languagedetector@8.0.2:
     resolution: {integrity: sha512-shBvPmnIyZeD2VU5jVGIOWP7u9qNG3Lj7mpaiPFpbJ3LVfHZJvVzKR4v1Cb91wAOFpNw442N+LGPzHOHsten2g==}
 
+  i18next-fs-backend@2.6.0:
+    resolution: {integrity: sha512-3ZlhNoF9yxnM8pa8bWp5120/Ob6t4lVl1l/tbLmkml/ei3ud8IWySCHt2lrY5xWRlSU5D9IV2sm5bEbGuTqwTw==}
+
   i18next-http-backend@3.0.1:
     resolution: {integrity: sha512-XT2lYSkbAtDE55c6m7CtKxxrsfuRQO3rUfHzj8ZyRtY9CkIX3aRGwXGTkUhpGWce+J8n7sfu3J0f2wTzo7Lw0A==}
 
   i18next-http-middleware@3.7.1:
     resolution: {integrity: sha512-nVTSGB1P4Gad5PFQYf3xVUOzJ4tVSQYD8Rs0luyWkjEMwqdqAcZ9CqIzqYwVLgB5/BKr1COI0oAei5dlYzmGbg==}
+
+  i18next-resources-to-backend@1.2.1:
+    resolution: {integrity: sha512-okHbVA+HZ7n1/76MsfhPqDou0fptl2dAlhRDu2ideXloRRduzHsqDOznJBef+R3DFZnbvWoBW+KxJ7fnFjd6Yw==}
 
   i18next@24.2.1:
     resolution: {integrity: sha512-Q2wC1TjWcSikn1VAJg13UGIjc+okpFxQTxjVAymOnSA3RpttBQNMPf2ovcgoFVsV4QNxTfNZMAxorXZXsk4fBA==}
@@ -4390,6 +4402,8 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
 
+  i18next-fs-backend@2.6.0: {}
+
   i18next-http-backend@3.0.1:
     dependencies:
       cross-fetch: 4.0.0
@@ -4397,6 +4411,10 @@ snapshots:
       - encoding
 
   i18next-http-middleware@3.7.1: {}
+
+  i18next-resources-to-backend@1.2.1:
+    dependencies:
+      '@babel/runtime': 7.26.0
 
   i18next@24.2.1(typescript@5.7.2):
     dependencies:

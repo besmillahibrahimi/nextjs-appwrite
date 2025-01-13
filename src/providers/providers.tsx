@@ -2,8 +2,7 @@
 import { ThemeProvider } from "next-themes";
 import { Suspense } from "react";
 import { AppProvider } from "./app.provider";
-import { I18nextProvider } from "react-i18next";
-import i18n from "@/configs/i18n";
+import I18nProvider from "./i18n.provider";
 
 export default function Providers({
   children,
@@ -15,7 +14,7 @@ export default function Providers({
         <div className="flex justify-center items-center">Loading...</div>
       }
     >
-      <I18nextProvider i18n={i18n}>
+      <I18nProvider locale="fa">
         <AppProvider>
           <ThemeProvider
             attribute="class"
@@ -26,7 +25,7 @@ export default function Providers({
             {children}
           </ThemeProvider>
         </AppProvider>
-      </I18nextProvider>
+      </I18nProvider>
     </Suspense>
   );
 }
