@@ -1,11 +1,11 @@
-import { EnvSchema } from "./schema";
+import { ServerEnvSchema } from "./schema";
 import { getEnvironment, validateEnvVars } from "./utils";
 
 const { currentEnv, isDevMode, isDevelopment } = getEnvironment();
 
 export const requiredEnvVars = [
   "NEXT_PUBLIC_APPWRITE_ENDPOINT",
-  "NEXT_PUBLIC_APPWRITE_PROJECT_ID",
+  "APPWRITE_API_KEY",
   "APPWRITE_DATABASE_ID",
 ] as const;
 
@@ -13,7 +13,7 @@ if (isDevelopment) {
   validateEnvVars(requiredEnvVars);
 }
 
-const env = EnvSchema.parse({
+export const serverEnv = ServerEnvSchema.parse({
   app: {
     env: currentEnv,
     isDevMode,
@@ -31,5 +31,3 @@ const env = EnvSchema.parse({
       process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME ?? "auth_session_token",
   },
 });
-
-export default env;
