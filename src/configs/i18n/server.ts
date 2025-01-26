@@ -1,23 +1,30 @@
 "use server";
-import path from "node:path";
 import i18n from "i18next";
-import Backend from "i18next-fs-backend";
-import { getOptions } from "./i18n";
+import ResourceBackend from "i18next-resources-to-backend";
+import { cookies } from "next/headers";
+import { serverEnv } from "../env/server";
+import { I18N, getOptions } from "./i18n";
 
-const initI18n = async (locale: string, ns: string | string[]) => {
+const resource = ResourceBackend(
+  (lang: string, ns: string) =>
+    import(`../../../public/locales/${lang}/${ns}.json`),
+);
+
+const initI18n = async (locale: string) => {
   if (!i18n.isInitialized) {
-    await i18n.use(Backend).init({
-      ...getOptions(locale, ns),
-      backend: {
-        loadPath: path.resolve("./public/locales/{{lng}}/{{ns}}.json"),
-      },
-    });
+    await i18n.use(resource).init(getOptions(locale, "common"));
+  } else {
+    await i18n.changeLanguage(locale);
   }
   return i18n;
 };
 
-export async function useTranslation(locale: string, ns: string | string[]) {
-  const i18n = await initI18n(locale, ns);
+export async function useTranslation(ns: string | string[] = ["common"]) {
+  const locale =
+    (await cookies()).get(serverEnv.app.localeCookieName)?.value ??
+    I18N.defaultLocale;
+
+  const i18n = await initI18n(locale);
 
   return {
     t: i18n.getFixedT(locale, ns),

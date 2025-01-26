@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const EnvSchema = z.object({
+export const ClientEnvSchema = z.object({
   auth: z.object({
     authCookieName: z.string(),
   }),
@@ -20,4 +20,4 @@ export const EnvSchema = z.object({
   }),
 });
 
-export type ClientEnv = z.infer<typeof EnvSchema>;
+export type ClientEnv = z.infer<typeof ClientEnvSchema>;
