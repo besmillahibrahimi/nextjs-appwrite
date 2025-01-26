@@ -1,6 +1,6 @@
 "use client";
 import { Account, Client, Databases, Functions, Storage } from "appwrite";
-import clientEnv from "../env";
+import clientEnv from "../env/client";
 
 export { ID } from "appwrite";
 

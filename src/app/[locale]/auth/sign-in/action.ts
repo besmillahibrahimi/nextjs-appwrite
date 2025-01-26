@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/configs/appwrite/server";
-import env from "@/configs/env";
+import env from "@/configs/env/client";
 import { getEnvironment } from "@/configs/env/utils";
 import { encodedRedirect } from "@/lib/utils";
 import { AppwriteException } from "appwrite";

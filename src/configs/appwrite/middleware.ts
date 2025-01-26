@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import env from "../env";
+import env from "../env/client";
 import { i18nMiddleware } from "../i18n/middleware";
 
 export const updateSession = async (request: NextRequest) => {

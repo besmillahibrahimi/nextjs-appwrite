@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { Account, Client } from "node-appwrite";
-import env from "../env";
+import env from "../env/client";
 import { getEnvironment } from "../env/utils";
 
 export async function createClient() {

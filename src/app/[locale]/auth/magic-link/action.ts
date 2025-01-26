@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/configs/appwrite/server";
-import clientEnv from "@/configs/env";
+import clientEnv from "@/configs/env/client";
 import { encodedRedirect } from "@/lib/utils";
 import { AppwriteException } from "appwrite";
 import { startCase } from "lodash-es";
