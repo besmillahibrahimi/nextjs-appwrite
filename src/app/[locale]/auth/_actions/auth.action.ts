@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/configs/appwrite/server";
-import env from "@/configs/env";
+import env from "@/configs/env/client";
 import { encodedRedirect } from "@/lib/utils";
 import { cookies } from "next/headers";
 
