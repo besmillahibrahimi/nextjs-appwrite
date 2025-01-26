@@ -19,6 +19,8 @@ export const serverEnv = ServerEnvSchema.parse({
     isDevMode,
     assetUrl: process.env.NEXT_PUBLIC_ASSET_URL,
     address: process.env.NEXT_PUBLIC_SITE_ADDRESS,
+    localeCookieName:
+      process.env.NEXT_PUBLIC_LOCALE_COOKIE_NAME ?? "LOCALE_NEXT_COOKIE",
   },
   appwrite: {
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,

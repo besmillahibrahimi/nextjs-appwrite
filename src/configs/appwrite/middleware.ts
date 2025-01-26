@@ -6,7 +6,7 @@ export const updateSession = async (request: NextRequest) => {
   try {
     const response = i18nMiddleware(request);
 
-    if (response.redirected) return response;
+    // if (response.redirected) return response;
 
     const authCookie = request.cookies.get(env.auth.authCookieName);
 

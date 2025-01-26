@@ -11,6 +11,7 @@ export const ClientEnvSchema = z.object({
     isDevMode: z.boolean(),
     assetUrl: z.string().url(),
     address: z.string().url(),
+    localeCookieName: z.string(),
   }),
   appwrite: z.object({
     endpoint: z.string().url(),
@@ -29,6 +30,7 @@ export const ServerEnvSchema = z.object({
     isDevMode: z.boolean(),
     assetUrl: z.string().url(),
     address: z.string().url(),
+    localeCookieName: z.string(),
   }),
   appwrite: z.object({
     endpoint: z.string().url(),
