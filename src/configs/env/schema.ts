@@ -35,7 +35,7 @@ export const ServerEnvSchema = z.object({
   appwrite: z.object({
     endpoint: z.string().url(),
     projectId: z.string(),
-    databaseId: z.string().optional(),
+    databaseId: z.string(),
     apiKey: z.string(),
   }),
 });
