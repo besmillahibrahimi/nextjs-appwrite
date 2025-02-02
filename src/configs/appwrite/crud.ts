@@ -1,14 +1,14 @@
 "use server";
 
-import { ID, databases } from "@/configs/appwrite/client";
+import { createClient } from "@/configs/appwrite/server";
 import type {
   CollectionName,
   CollectionType,
 } from "@/types/collections/collections";
 
 import type { Models } from "appwrite";
-
-const DATABASE_ID = process.env.APPWRITE_DATABASE_ID || "";
+import { ID } from "node-appwrite";
+import { serverEnv } from "../env/server";
 
 // Create Document
 export async function createDocument<Name extends CollectionName>(
@@ -16,10 +16,10 @@ export async function createDocument<Name extends CollectionName>(
   data: Omit<CollectionType<Name>, keyof Models.Document>, // Exclude 'id' since it's auto-generated
 ): Promise<CrudResponse<CollectionType<Name>>> {
   const res: CrudResponse<CollectionType<Name>> = {};
-
+  const client = await createClient();
   try {
-    const response = await databases.createDocument<CollectionType<Name>>(
-      DATABASE_ID,
+    const response = await client.database.createDocument<CollectionType<Name>>(
+      serverEnv.appwrite.databaseId,
       collectionId,
       ID.unique(),
       data,
@@ -39,8 +39,9 @@ export async function readDocuments<Name extends CollectionName>(
 ): Promise<ReadResponse<CollectionType<Name>[]>> {
   const res: ReadResponse<CollectionType<Name>[]> = {};
   try {
-    const response = await databases.listDocuments<CollectionType<Name>>(
-      DATABASE_ID,
+    const client = await createClient();
+    const response = await client.database.listDocuments<CollectionType<Name>>(
+      serverEnv.appwrite.databaseId,
       collectionId,
       queries,
     );
@@ -59,9 +60,10 @@ export async function readDocument<Name extends CollectionName>(
   documentId: string,
 ): Promise<CrudResponse<CollectionType<Name>>> {
   const res: CrudResponse<CollectionType<Name>> = {};
+  const client = await createClient();
   try {
-    const response = await databases.getDocument<CollectionType<Name>>(
-      DATABASE_ID,
+    const response = await client.database.getDocument<CollectionType<Name>>(
+      serverEnv.appwrite.databaseId,
       collectionId,
       documentId,
     );
@@ -80,9 +82,10 @@ export async function updateDocument<Name extends CollectionName>(
   data: Partial<Omit<CollectionType<Name>, keyof Models.Document>>, // Allow partial updates
 ): Promise<CrudResponse<CollectionType<Name>>> {
   const res: CrudResponse<CollectionType<Name>> = {};
+  const client = await createClient();
   try {
-    const response = await databases.updateDocument(
-      DATABASE_ID,
+    const response = await client.database.updateDocument(
+      serverEnv.appwrite.databaseId,
       collectionId,
       documentId,
       data,
@@ -102,7 +105,12 @@ export async function deleteDocument<Name extends CollectionName>(
 ): Promise<DeleteResponse> {
   const res: DeleteResponse = {};
   try {
-    await databases.deleteDocument(DATABASE_ID, collectionId, documentId);
+    const client = await createClient();
+    await client.database.deleteDocument(
+      serverEnv.appwrite.databaseId,
+      collectionId,
+      documentId,
+    );
     res.success = true;
   } catch (error) {
     res.error = error as Error;
