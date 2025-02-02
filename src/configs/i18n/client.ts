@@ -10,24 +10,24 @@ const runsOnServerSide = typeof window === "undefined";
 
 export const i18n = i18next.createInstance();
 i18n
-	.use(LanguageDetector)
-	.use(
-		resourcesToBackend(
-			(lang: string, ns: string) =>
-				import(`../../../public/locales/${lang}/${ns}.json`),
-		),
-	)
-	.use(initReactI18next)
-	.init({
-		...getOptions(),
-		detection: {
-			order: ["path", "htmlTag", "cookie", "navigator"],
-		},
-		preload: runsOnServerSide ? I18N.locales : [],
-		interpolation: {
-			escapeValue: false,
-		},
-		react: {
-			useSuspense: true,
-		},
-	});
+  .use(LanguageDetector)
+  .use(
+    resourcesToBackend(
+      (lang: string, ns: string) =>
+        import(`../../../public/locales/${lang}/${ns}.json`),
+    ),
+  )
+  .use(initReactI18next)
+  .init({
+    ...getOptions(),
+    detection: {
+      order: ["path", "htmlTag", "cookie", "navigator"],
+    },
+    preload: runsOnServerSide ? I18N.locales : [],
+    interpolation: {
+      escapeValue: false,
+    },
+    react: {
+      useSuspense: true,
+    },
+  });
